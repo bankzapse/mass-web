@@ -26,6 +26,8 @@ interface SeoProps {
   /** article metadata */
   published?: string
   modified?: string
+  /** exclude from search engines (e.g. /admin) */
+  noindex?: boolean
 }
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
@@ -59,6 +61,7 @@ export function Seo({
   jsonLd,
   published,
   modified,
+  noindex,
 }: SeoProps) {
   const location = useLocation()
   const url = SITE.url + (path ?? location.pathname)
@@ -67,6 +70,7 @@ export function Seo({
 
   useEffect(() => {
     document.title = fullTitle
+    upsertMeta('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large')
     upsertMeta('name', 'description', description)
     if (keywords) upsertMeta('name', 'keywords', keywords)
     upsertLink('canonical', url)
@@ -104,7 +108,7 @@ export function Seo({
         document.head.appendChild(s)
       }
     }
-  }, [fullTitle, description, keywords, url, type, ogImage, jsonLd, published, modified])
+  }, [fullTitle, description, keywords, url, type, ogImage, jsonLd, published, modified, noindex])
 
   return null
 }

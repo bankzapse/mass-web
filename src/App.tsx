@@ -1,4 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
 import { DownloadBand } from './components/DownloadBand'
@@ -11,7 +12,12 @@ import Partner from './pages/Partner'
 import Business from './pages/Business'
 import NotFound from './pages/NotFound'
 
+const Admin = lazy(() => import('./pages/Admin'))
+
 export default function App() {
+  const { pathname } = useLocation()
+  const isAdmin = pathname === '/admin'
+
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
@@ -27,11 +33,19 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/partner" element={<Partner />} />
           <Route path="/business" element={<Business />} />
+          <Route
+            path="/admin"
+            element={
+              <Suspense fallback={<div className="container-mass py-24 text-center text-ink-400">กำลังโหลด…</div>}>
+                <Admin />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <DownloadBand />
-      <Footer />
+      {!isAdmin && <DownloadBand />}
+      {!isAdmin && <Footer />}
     </div>
   )
 }
