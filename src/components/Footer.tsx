@@ -70,9 +70,9 @@ export function Footer() {
               <FooterLink to="/business">{t('footer.for_business')}</FooterLink>
             </FooterCol>
             <FooterCol title={t('footer.support')}>
-              <FooterLink to="/">{t('footer.help_center')}</FooterLink>
-              <FooterLink to="/">{t('footer.safety_center')}</FooterLink>
-              <FooterLink to="/">{t('footer.contact')}</FooterLink>
+              <FooterLink to="/support">{t('footer.help_center')}</FooterLink>
+              <FooterLink to="/support">{t('footer.safety_center')}</FooterLink>
+              <FooterLink to="/support">{t('footer.contact')}</FooterLink>
               <FooterLink to="/">{t('footer.terms')}</FooterLink>
               <FooterLink to="/">{t('footer.privacy')}</FooterLink>
             </FooterCol>

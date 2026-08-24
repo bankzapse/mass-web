@@ -10,6 +10,7 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Partner from './pages/Partner'
 import Business from './pages/Business'
+import Support from './pages/Support'
 import NotFound from './pages/NotFound'
 
 const Admin = lazy(() => import('./pages/Admin'))
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/partner" element={<Partner />} />
           <Route path="/business" element={<Business />} />
+          <Route path="/support" element={<Support />} />
           <Route
             path="/admin"
             element={
