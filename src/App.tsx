@@ -11,6 +11,7 @@ import BlogPost from './pages/BlogPost'
 import Partner from './pages/Partner'
 import Business from './pages/Business'
 import Support from './pages/Support'
+import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
 const Admin = lazy(() => import('./pages/Admin'))
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/partner" element={<Partner />} />
           <Route path="/business" element={<Business />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route
             path="/admin"
             element={

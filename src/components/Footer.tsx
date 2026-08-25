@@ -74,7 +74,7 @@ export function Footer() {
               <FooterLink to="/support">{t('footer.safety_center')}</FooterLink>
               <FooterLink to="/support">{t('footer.contact')}</FooterLink>
               <FooterLink to="/">{t('footer.terms')}</FooterLink>
-              <FooterLink to="/">{t('footer.privacy')}</FooterLink>
+              <FooterLink to="/privacy">{t('footer.privacy')}</FooterLink>
             </FooterCol>
           </div>
 
@@ -138,7 +138,7 @@ export function Footer() {
             <Link to="/" className="hover:text-white">
               {t('footer.terms')}
             </Link>
-            <Link to="/" className="hover:text-white">
+            <Link to="/privacy" className="hover:text-white">
               {t('footer.privacy')}
             </Link>
             <span className="flex items-center gap-1.5">
