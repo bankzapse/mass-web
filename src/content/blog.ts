@@ -1,6 +1,9 @@
-// Content is stored in blog.json so it can be edited via the /admin CMS
-// (and by hand on GitHub). This module just adds types + lookup helpers.
-import data from './blog.json'
+// Content is stored in blog.json (Thai) + blog.en.json (English). This module
+// adds types + language-aware lookup helpers.
+import dataTh from './blog.json'
+import dataEn from './blog.en.json'
+
+export type Lang = 'th' | 'en'
 
 export interface BlogSection {
   h: string
@@ -24,8 +27,13 @@ export interface BlogPost {
   sections: BlogSection[]
 }
 
-export const BLOG_POSTS = data as unknown as BlogPost[]
+export const BLOG_POSTS = dataTh as unknown as BlogPost[]
+export const BLOG_POSTS_EN = dataEn as unknown as BlogPost[]
 
-export function getPost(slug: string): BlogPost | undefined {
-  return BLOG_POSTS.find((p) => p.slug === slug)
+export function getPosts(lang: Lang = 'th'): BlogPost[] {
+  return lang === 'en' ? BLOG_POSTS_EN : BLOG_POSTS
+}
+
+export function getPost(slug: string, lang: Lang = 'th'): BlogPost | undefined {
+  return getPosts(lang).find((p) => p.slug === slug)
 }

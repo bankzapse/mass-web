@@ -4,24 +4,27 @@ import { Seo, breadcrumb, SITE } from '../components/Seo'
 import { Section, Reveal } from '../components/Section'
 import { Breadcrumbs } from '../components/Article'
 import { HeroPhoto } from '../components/ui'
-import { BLOG_POSTS, getPost } from '../content/blog'
+import { getPost, getPosts } from '../content/blog'
+import { useI18n } from '../i18n/I18nContext'
 
 export default function BlogPost() {
   const { slug = '' } = useParams()
-  const post = getPost(slug)
+  const { lang } = useI18n()
+  const th = lang === 'th'
+  const post = getPost(slug, lang)
 
   if (!post) {
     return (
       <div className="container-mass py-32 text-center">
-        <h1 className="text-2xl font-bold">ไม่พบบทความนี้</h1>
+        <h1 className="text-2xl font-bold">{th ? 'ไม่พบบทความนี้' : 'Article not found'}</h1>
         <Link to="/blog" className="btn-primary btn-lg mt-6">
-          ดูบทความทั้งหมด
+          {th ? 'ดูบทความทั้งหมด' : 'View all articles'}
         </Link>
       </div>
     )
   }
 
-  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3)
+  const related = getPosts(lang).filter((p) => p.slug !== post.slug).slice(0, 3)
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -31,7 +34,7 @@ export default function BlogPost() {
     image: post.cover,
     datePublished: post.date,
     dateModified: post.date,
-    inLanguage: 'th-TH',
+    inLanguage: th ? 'th-TH' : 'en',
     mainEntityOfPage: SITE.url + '/blog/' + post.slug,
     author: { '@type': 'Organization', name: SITE.legalName },
     publisher: {
@@ -55,7 +58,7 @@ export default function BlogPost() {
         jsonLd={[
           articleSchema,
           breadcrumb([
-            { name: 'บทความ', path: '/blog' },
+            { name: th ? 'บทความ' : 'Blog', path: '/blog' },
             { name: post.title, path: `/blog/${post.slug}` },
           ]),
         ]}
@@ -66,7 +69,7 @@ export default function BlogPost() {
         <HeroPhoto src={post.cover} className="opacity-30 mix-blend-luminosity" />
         <div className="pointer-events-none absolute inset-0 bg-ink-900/55" />
         <div className="container-mass relative py-14 sm:py-20">
-          <Breadcrumbs trail={[{ name: 'บทความ', path: '/blog' }, { name: post.category, path: '/blog' }]} />
+          <Breadcrumbs trail={[{ name: th ? 'บทความ' : 'Blog', path: '/blog' }, { name: post.category, path: '/blog' }]} />
           <span className="eyebrow !bg-white/10 !text-mass-300">{post.category}</span>
           <h1 className="mt-4 max-w-3xl text-balance text-3xl font-extrabold leading-tight sm:text-5xl">
             {post.title}
@@ -78,7 +81,7 @@ export default function BlogPost() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-4 w-4" />
-              อ่าน {post.readMins} นาที
+              {th ? `อ่าน ${post.readMins} นาที` : `${post.readMins} min read`}
             </span>
           </div>
         </div>
@@ -110,18 +113,18 @@ export default function BlogPost() {
 
           {/* CTA */}
           <div className="mt-12 flex flex-col items-center gap-4 rounded-3xl bg-mass-gradient p-8 text-center text-white">
-            <h2 className="font-display text-xl font-bold sm:text-2xl">เริ่มใช้งาน MASS วันนี้</h2>
-            <p className="max-w-md text-white/90">ดาวน์โหลดแอปฟรี แล้วสัมผัสบริการที่ครบจบในแอปเดียว</p>
+            <h2 className="font-display text-xl font-bold sm:text-2xl">{th ? 'เริ่มใช้งาน MASS วันนี้' : 'Start using MASS today'}</h2>
+            <p className="max-w-md text-white/90">{th ? 'ดาวน์โหลดแอปฟรี แล้วสัมผัสบริการที่ครบจบในแอปเดียว' : 'Download the free app and experience everything in one place.'}</p>
             <a href="#download" className="btn bg-white btn-lg text-mass-600 hover:bg-white/90">
               <Download className="h-5 w-5" />
-              ดาวน์โหลดแอป
+              {th ? 'ดาวน์โหลดแอป' : 'Get the app'}
             </a>
           </div>
 
           <div className="mt-8">
             <Link to="/blog" className="inline-flex items-center gap-1.5 font-semibold text-mass-600 hover:text-mass-700">
               <ArrowLeft className="h-4 w-4" />
-              กลับไปหน้าบทความ
+              {th ? 'กลับไปหน้าบทความ' : 'Back to blog'}
             </Link>
           </div>
         </div>
@@ -130,7 +133,7 @@ export default function BlogPost() {
       {/* related */}
       <Section className="bg-ink-50/50 !pt-4">
         <h2 className="mb-8 text-center font-display text-2xl font-bold text-ink-900 sm:text-3xl">
-          บทความที่เกี่ยวข้อง
+          {th ? 'บทความที่เกี่ยวข้อง' : 'Related articles'}
         </h2>
         <div className="grid gap-6 sm:grid-cols-3">
           {related.map((p, i) => (
@@ -153,7 +156,7 @@ export default function BlogPost() {
                     {p.title}
                   </h3>
                   <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-mass-600">
-                    อ่านต่อ <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    {th ? 'อ่านต่อ' : 'Read more'} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
               </Link>

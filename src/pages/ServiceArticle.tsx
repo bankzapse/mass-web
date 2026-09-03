@@ -6,19 +6,22 @@ import { Breadcrumbs, Prose, FaqAccordion } from '../components/Article'
 import { AppBadges, HeroPhoto } from '../components/ui'
 import { getService } from '../content/services'
 import { getIcon, IconBadge } from '../lib/icons'
+import { useI18n } from '../i18n/I18nContext'
 import { cx } from '../lib/ui'
 
 export default function ServiceArticle({ slug: slugProp }: { slug?: string }) {
   const params = useParams()
+  const { lang } = useI18n()
+  const th = lang === 'th'
   const slug = slugProp ?? params.slug ?? ''
-  const s = getService(slug)
+  const s = getService(slug, lang)
 
   if (!s) {
     return (
       <div className="container-mass py-32 text-center">
-        <h1 className="text-2xl font-bold">ไม่พบหน้านี้</h1>
+        <h1 className="text-2xl font-bold">{th ? 'ไม่พบหน้านี้' : 'Page not found'}</h1>
         <Link to="/" className="btn-primary btn-lg mt-6">
-          กลับหน้าแรก
+          {th ? 'กลับหน้าแรก' : 'Back home'}
         </Link>
       </div>
     )
@@ -36,7 +39,7 @@ export default function ServiceArticle({ slug: slugProp }: { slug?: string }) {
           serviceSchema(s.title, s.metaDescription, s.path),
           faqSchema(s.faq),
           breadcrumb([
-            { name: 'บริการ', path: '/#services' },
+            { name: th ? 'บริการ' : 'Services', path: '/#services' },
             { name: s.eyebrow, path: s.path },
           ]),
         ]}
@@ -81,9 +84,9 @@ export default function ServiceArticle({ slug: slugProp }: { slug?: string }) {
       <Section className="!pt-4">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow mb-3">ขั้นตอนการใช้งาน</span>
+            <span className="eyebrow mb-3">{th ? 'ขั้นตอนการใช้งาน' : 'How it works'}</span>
             <h2 className="text-balance text-3xl font-bold text-ink-900 sm:text-4xl">
-              ใช้ {s.eyebrow} ง่าย ๆ ใน 3 ขั้นตอน
+              {th ? `ใช้ ${s.eyebrow} ง่าย ๆ ใน 3 ขั้นตอน` : `Use ${s.eyebrow} in 3 easy steps`}
             </h2>
           </div>
         </Reveal>
@@ -152,9 +155,9 @@ export default function ServiceArticle({ slug: slugProp }: { slug?: string }) {
       <Section className="bg-ink-50/50">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow mb-3">คำถามที่พบบ่อย</span>
+            <span className="eyebrow mb-3">{th ? 'คำถามที่พบบ่อย' : 'FAQ'}</span>
             <h2 className="text-balance text-3xl font-bold text-ink-900 sm:text-4xl">
-              คำถามที่พบบ่อยเกี่ยวกับ {s.eyebrow}
+              {th ? `คำถามที่พบบ่อยเกี่ยวกับ ${s.eyebrow}` : `Frequently asked questions about ${s.eyebrow}`}
             </h2>
           </div>
         </Reveal>
@@ -167,18 +170,20 @@ export default function ServiceArticle({ slug: slugProp }: { slug?: string }) {
       <Section className="!pt-0">
         <div className="flex flex-col items-center gap-5 rounded-4xl bg-mass-gradient px-6 py-12 text-center text-white sm:px-12">
           <h2 className="text-balance text-2xl font-extrabold sm:text-3xl">
-            พร้อมใช้ {s.eyebrow} แล้วหรือยัง?
+            {th ? `พร้อมใช้ ${s.eyebrow} แล้วหรือยัง?` : `Ready to use ${s.eyebrow}?`}
           </h2>
           <p className="max-w-xl text-[17px] text-white/90">
-            ดาวน์โหลดแอป MASS วันนี้ แล้วเริ่มต้นใช้งานบริการที่ครบจบในแอปเดียว
+            {th
+              ? 'ดาวน์โหลดแอป MASS วันนี้ แล้วเริ่มต้นใช้งานบริการที่ครบจบในแอปเดียว'
+              : 'Download the MASS app today and start using everything in one app.'}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a href="#download" className="btn bg-white btn-lg text-mass-600 hover:bg-white/90">
               <Download className="h-5 w-5" />
-              ดาวน์โหลดแอป
+              {th ? 'ดาวน์โหลดแอป' : 'Get the app'}
             </a>
             <Link to="/blog" className="btn bg-white/15 btn-lg text-white hover:bg-white/25">
-              อ่านบทความเพิ่มเติม
+              {th ? 'อ่านบทความเพิ่มเติม' : 'Read more articles'}
               <ArrowRight className="h-5 w-5" />
             </Link>
           </div>

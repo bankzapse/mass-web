@@ -2,16 +2,18 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronDown, Home } from 'lucide-react'
 import { cx } from '../lib/ui'
+import { useI18n } from '../i18n/I18nContext'
 import type { Faq } from '../content/services'
 
 export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[] }) {
+  const { lang } = useI18n()
   return (
     <nav aria-label="breadcrumb" className="mb-4">
       <ol className="flex flex-wrap items-center gap-1.5 text-sm text-white/70">
         <li>
           <Link to="/" className="inline-flex items-center gap-1 hover:text-white">
             <Home className="h-3.5 w-3.5" />
-            หน้าแรก
+            {lang === 'th' ? 'หน้าแรก' : 'Home'}
           </Link>
         </li>
         {trail.map((t, i) => (

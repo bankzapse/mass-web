@@ -2,18 +2,22 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, CalendarDays, Clock } from 'lucide-react'
 import { Seo, breadcrumb, SITE } from '../components/Seo'
 import { Section, Reveal } from '../components/Section'
-import { BLOG_POSTS } from '../content/blog'
+import { getPosts } from '../content/blog'
+import { useI18n } from '../i18n/I18nContext'
 
 export default function Blog() {
-  const [featured, ...rest] = BLOG_POSTS
+  const { lang } = useI18n()
+  const th = lang === 'th'
+  const posts = getPosts(lang)
+  const [featured, ...rest] = posts
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'บทความ MASS',
+    name: th ? 'บทความ MASS' : 'MASS Blog',
     url: SITE.url + '/blog',
-    inLanguage: 'th-TH',
-    blogPost: BLOG_POSTS.map((p) => ({
+    inLanguage: th ? 'th-TH' : 'en',
+    blogPost: posts.map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
       url: SITE.url + '/blog/' + p.slug,
@@ -24,23 +28,29 @@ export default function Blog() {
   return (
     <div>
       <Seo
-        title="บทความและเคล็ดลับ — MASS RIDE & DELIVERY"
-        description="รวมบทความ เคล็ดลับ และความรู้เกี่ยวกับบริการสั่งอาหาร เรียกรถ ส่งพัสดุ และซื้อของกับ MASS ซูเปอร์แอปสัญชาติไทย"
+        title={th ? 'บทความและเคล็ดลับ — MASS RIDE & DELIVERY' : 'Articles & Tips — MASS RIDE & DELIVERY'}
+        description={
+          th
+            ? 'รวมบทความ เคล็ดลับ และความรู้เกี่ยวกับบริการสั่งอาหาร เรียกรถ ส่งพัสดุ และซื้อของกับ MASS ซูเปอร์แอปสัญชาติไทย'
+            : 'Articles, tips and know-how about food delivery, ride-hailing, parcels and shopping with MASS, the Thai super-app.'
+        }
         path="/blog"
-        keywords="บทความ MASS, เคล็ดลับสั่งอาหาร, บล็อกเดลิเวอรี"
-        jsonLd={[jsonLd, breadcrumb([{ name: 'บทความ', path: '/blog' }])]}
+        keywords={th ? 'บทความ MASS, เคล็ดลับสั่งอาหาร, บล็อกเดลิเวอรี' : 'MASS blog, food delivery tips, delivery blog'}
+        jsonLd={[jsonLd, breadcrumb([{ name: th ? 'บทความ' : 'Blog', path: '/blog' }])]}
       />
 
       {/* header */}
       <header className="relative overflow-hidden bg-ink-gradient text-white">
         <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-mass-500/25 blur-3xl" />
         <div className="container-mass relative py-14 sm:py-20">
-          <span className="eyebrow !bg-white/10 !text-mass-300">📝 บทความ</span>
+          <span className="eyebrow !bg-white/10 !text-mass-300">📝 {th ? 'บทความ' : 'Blog'}</span>
           <h1 className="mt-4 max-w-2xl text-balance text-3xl font-extrabold leading-tight sm:text-5xl">
-            บทความและเคล็ดลับจาก MASS
+            {th ? 'บทความและเคล็ดลับจาก MASS' : 'Articles & tips from MASS'}
           </h1>
           <p className="mt-4 max-w-xl text-[17px] text-ink-100">
-            ความรู้ เคล็ดลับ และเรื่องน่าสนใจเกี่ยวกับบริการเดลิเวอรี การเดินทาง และการใช้ชีวิตให้ง่ายขึ้นกับ MASS
+            {th
+              ? 'ความรู้ เคล็ดลับ และเรื่องน่าสนใจเกี่ยวกับบริการเดลิเวอรี การเดินทาง และการใช้ชีวิตให้ง่ายขึ้นกับ MASS'
+              : 'Know-how, tips and stories about delivery, travel, and making everyday life easier with MASS.'}
           </p>
         </div>
       </header>
@@ -75,11 +85,11 @@ export default function Blog() {
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Clock className="h-4 w-4" />
-                  อ่าน {featured.readMins} นาที
+                  {th ? `อ่าน ${featured.readMins} นาที` : `${featured.readMins} min read`}
                 </span>
               </div>
               <span className="mt-6 inline-flex items-center gap-1.5 font-semibold text-mass-600">
-                อ่านบทความ
+                {th ? 'อ่านบทความ' : 'Read article'}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </div>
@@ -117,7 +127,7 @@ export default function Blog() {
                     </span>
                     <span className="inline-flex items-center gap-1">
                       <Clock className="h-3.5 w-3.5" />
-                      {p.readMins} นาที
+                      {th ? `${p.readMins} นาที` : `${p.readMins} min`}
                     </span>
                   </div>
                 </div>

@@ -1,0 +1,335 @@
+[
+  {
+    "slug": "food",
+    "path": "/food",
+    "emoji": "🍜",
+    "eyebrow": "MASS Food",
+    "title": "MASS Food — Food Delivery",
+    "metaTitle": "MASS Food Delivery — fast, delicious, to your door",
+    "metaDescription": "MASS Food online food delivery brings meals from your favourite restaurants to your door fast, safely and affordably, with professional riders and real-time tracking.",
+    "keywords": "food delivery, MASS Food, order food online, food delivery Thailand, meal delivery",
+    "heroImage": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1000&q=74",
+    "heroAlt": "A spread of dishes ready for delivery by MASS Food",
+    "intro": "MASS Food is a food-delivery service built for modern life in Thailand. Enjoy your favourite meals from quality restaurants anytime, anywhere — just open the MASS app, pick your dishes, and let our professional riders deliver them to you quickly and safely, with real-time delivery tracking.",
+    "highlights": [
+      {
+        "icon": "fast",
+        "h": "Fast, with live tracking",
+        "body": "We match the rider nearest the restaurant so your food arrives hot and fresh, with real-time status tracking."
+      },
+      {
+        "icon": "store",
+        "h": "A huge variety of restaurants",
+        "body": "From Thai à la carte and noodles to grilled dishes, Japanese, desserts and drinks."
+      },
+      {
+        "icon": "card",
+        "h": "Easy payment",
+        "body": "Pay by cash, card or digital wallet — all in one app."
+      },
+      {
+        "icon": "shield",
+        "h": "Clean & safe",
+        "body": "Restaurants and riders are screened, with hygiene-focused delivery standards."
+      }
+    ],
+    "steps": [
+      {
+        "h": "Choose a restaurant & dishes",
+        "body": "Find a restaurant you love in the MASS app, choose your dishes and customise your order."
+      },
+      {
+        "h": "Confirm & pay",
+        "body": "Check your delivery address, pick a convenient payment method, then confirm your order."
+      },
+      {
+        "h": "Track & receive",
+        "body": "Watch your rider's location and estimated arrival in real time until the food reaches your door."
+      }
+    ],
+    "sections": [
+      {
+        "h": "Every craving, every cuisine",
+        "body": "Whether you want quick Thai classics like basil rice and pad thai, hot boat noodles, sushi and Japanese food, pizza and Western dishes, or bubble tea and comforting desserts, MASS Food brings together a wide range of restaurants to satisfy every meal and every craving for the whole family.",
+        "bullets": [
+          "Thai à la carte and rice-and-curry for quick meals",
+          "Noodles, soups, spicy salads and bold Isaan food",
+          "Japanese, Korean and international cuisine",
+          "Desserts, bakery, coffee and refreshing drinks"
+        ],
+        "img": "https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=74",
+        "imgAlt": "Popular noodle and single-plate dishes on MASS Food"
+      },
+      {
+        "h": "Professional riders who care for every dish",
+        "body": "The heart of delivery is speed and getting food to customers in the best possible condition. Every MASS rider is identity-verified and trained to service standards, uses insulated bags to keep food hot and fresh, and benefits from smart matching that picks the rider nearest the restaurant — cutting delivery time and keeping quality high.",
+        "img": "https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=900&q=74",
+        "imgAlt": "A MASS rider delivering food with an insulated bag"
+      },
+      {
+        "h": "Transparent pricing, great value on every order",
+        "body": "MASS Food shows food and delivery prices clearly before you confirm — no hidden fees — with promotions and discounts for new customers and special meals, so you can enjoy great food at a friendly price."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How long does MASS Food delivery take?",
+        "a": "Delivery time depends on distance and the restaurant, averaging about 20–40 minutes. The system matches the rider nearest the restaurant so your food reaches you as fast as possible."
+      },
+      {
+        "q": "Which areas does MASS Food serve?",
+        "a": "MASS is continuously expanding coverage across Thailand, in cities and surrounding areas. You can check the latest service areas in the MASS app."
+      },
+      {
+        "q": "What payment methods are accepted?",
+        "a": "Cash on delivery, credit/debit cards, and the in-app MASS digital wallet — for your convenience."
+      }
+    ]
+  },
+  {
+    "slug": "ride",
+    "path": "/ride",
+    "emoji": "🛵",
+    "eyebrow": "MASS Ride",
+    "title": "MASS Ride — Book a Ride",
+    "metaTitle": "MASS Ride — bike, car & taxi, safe upfront pricing",
+    "metaDescription": "MASS Ride ride-hailing with bikes, cars, taxis and premium vehicles. Know the fare before you travel, verified drivers, safe every trip, book ahead.",
+    "keywords": "ride hailing, MASS Ride, motorbike taxi, taxi, book a ride online, transport Thailand",
+    "heroImage": "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=900&q=74",
+    "heroAlt": "A MASS Ride car ready to pick up passengers",
+    "intro": "MASS Ride lets you travel anywhere, anytime, conveniently and safely — whether it's a nimble motorbike taxi through city traffic, a comfortable private car, a taxi, or a premium vehicle for special occasions. Every trip has upfront pricing, drivers are background-checked, and safety features look after you throughout the journey.",
+    "highlights": [
+      {
+        "icon": "wallet",
+        "h": "Upfront pricing",
+        "body": "Know the exact fare before you confirm — no surcharges along the way."
+      },
+      {
+        "icon": "shield",
+        "h": "Safe every trip",
+        "body": "Verified drivers, plus an SOS button and live route sharing."
+      },
+      {
+        "icon": "clock",
+        "h": "Short waits",
+        "body": "A large network of drivers ready to pick you up quickly."
+      },
+      {
+        "icon": "car",
+        "h": "Your choice of vehicle",
+        "body": "Motorbike, car, taxi and premium — for every lifestyle."
+      }
+    ],
+    "steps": [
+      {
+        "h": "Set pick-up & destination",
+        "body": "Enter your pick-up point and destination in the MASS app."
+      },
+      {
+        "h": "Choose a vehicle & see the price",
+        "body": "Pick the vehicle type you want and the app instantly shows the fare and estimated arrival."
+      },
+      {
+        "h": "Travel safely",
+        "body": "Track your driver in real time, share your route with trusted contacts, and arrive with peace of mind."
+      }
+    ],
+    "sections": [
+      {
+        "h": "A vehicle for every journey",
+        "body": "MASS Ride designs travel options for every situation — from beating rush-hour traffic on a motorbike to travelling as a family or picking up an important client by car or premium vehicle. You choose based on convenience and budget for each trip.",
+        "bullets": [
+          "Motorbike — nimble, economical, great for short trips",
+          "Car — comfortable, air-conditioned, room for the family",
+          "Taxi — standard service, easy to hail anytime",
+          "Premium — luxury cars and professional drivers for special occasions"
+        ],
+        "img": "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=74",
+        "imgAlt": "A MASS Ride motorbike providing city transport"
+      },
+      {
+        "h": "Safety comes first",
+        "body": "Every MASS Ride trip comes with high safety standards. All drivers are background-checked and identity-verified, passengers can share their live trip location with trusted contacts, and an in-app emergency SOS button is available 24/7 — so you and your family feel safe on every trip."
+      },
+      {
+        "h": "Transparent fares, no surprises",
+        "body": "MASS Ride shows the fare calculated from distance and vehicle type clearly before you book, so you can plan your costs in advance with no surcharges along the way."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How does MASS Ride calculate fares?",
+        "a": "Fares are calculated from vehicle type and distance, and the app shows a clear price before you confirm — so you know the cost in advance with no hidden fees."
+      },
+      {
+        "q": "Can I book a ride in advance?",
+        "a": "Yes. You can schedule a trip ahead of time in the MASS app for certainty — for example going to the airport or an important appointment."
+      },
+      {
+        "q": "What safety features are there during the trip?",
+        "a": "Driver identity verification, real-time route sharing, and an SOS button for emergency help available 24/7."
+      }
+    ]
+  },
+  {
+    "slug": "messenger",
+    "path": "/messenger",
+    "emoji": "📦",
+    "eyebrow": "MASS Messenger",
+    "title": "MASS Messenger — Express Parcel Delivery",
+    "metaTitle": "MASS Messenger — same-day parcel delivery",
+    "metaDescription": "MASS Messenger express parcel and document delivery — reach recipients the same day, real-time tracking, with parcel protection, safe every item.",
+    "keywords": "express parcel delivery, MASS Messenger, same day delivery, document delivery, courier Thailand",
+    "heroImage": "https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&fit=crop&w=900&q=74",
+    "heroAlt": "MASS Messenger express parcel delivery to a recipient",
+    "intro": "MASS Messenger is a same-day parcel and document delivery service. Perfect for personal items, important documents, food, or online-shop products, it lets you send things to recipients quickly and with confidence, with real-time tracking and protection on every parcel.",
+    "highlights": [
+      {
+        "icon": "fast",
+        "h": "Same-day express",
+        "body": "The rider picks up right after you confirm and delivers to the recipient the same day."
+      },
+      {
+        "icon": "pin",
+        "h": "Real-time tracking",
+        "body": "Know your parcel's location the whole way until it reaches the recipient."
+      },
+      {
+        "icon": "shield",
+        "h": "Parcel protection",
+        "body": "Coverage for parcel damage, for peace of mind on every delivery."
+      },
+      {
+        "icon": "chat",
+        "h": "Chat with your rider",
+        "body": "Send details and photos to your rider directly in the app."
+      }
+    ],
+    "steps": [
+      {
+        "h": "Set origin & destination",
+        "body": "Enter the pick-up address, recipient address and parcel details in the MASS app."
+      },
+      {
+        "h": "Choose parcel size",
+        "body": "Select the parcel size to send and the app shows the delivery cost in advance."
+      },
+      {
+        "h": "Track to the recipient",
+        "body": "The rider picks up and delivers; you track the status in real time until it's delivered."
+      }
+    ],
+    "sections": [
+      {
+        "h": "Send anything you need",
+        "body": "Whether it's an important contract that must go out fast, a gift for someone you love, food to share, or a product an online shop needs to get to a customer quickly, MASS Messenger supports parcels of many sizes — keeping your business and daily life moving.",
+        "bullets": [
+          "Documents and small items for express delivery",
+          "Gifts, food and medium-sized items",
+          "Large parcels for online shops"
+        ],
+        "img": "https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=900&q=74",
+        "imgAlt": "A MASS Messenger rider picking up a parcel for express delivery"
+      },
+      {
+        "h": "An essential tool for online shops",
+        "body": "For entrepreneurs and online shops, MASS Messenger is a partner that helps you get products to customers within a day, creating a great impression and increasing repeat purchases. With transparent tracking and cost-effective delivery, you manage costs and deliver a great customer experience at the same time."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How many hours does MASS Messenger delivery take?",
+        "a": "The service focuses on same-day express delivery; the rider picks up right after you confirm. Delivery time depends on the distance between origin and destination."
+      },
+      {
+        "q": "Is there parcel protection?",
+        "a": "Yes. Every delivery includes parcel protection for peace of mind. If damage occurs in transit, you can report it in the app."
+      },
+      {
+        "q": "Can I send large parcels?",
+        "a": "Yes. MASS Messenger supports many sizes, from small documents to large parcels, with the cost calculated from size and distance."
+      }
+    ]
+  },
+  {
+    "slug": "mart",
+    "path": "/mart",
+    "emoji": "🛒",
+    "eyebrow": "MASS Mart",
+    "title": "MASS Mart — Grocery Shopping",
+    "metaTitle": "MASS Mart online shopping — groceries & essentials to your door",
+    "metaDescription": "MASS Mart shopping service — order fresh groceries, household essentials and products from nearby supermarkets, delivered to your door fast and conveniently in one app.",
+    "keywords": "online shopping, MASS Mart, groceries, online supermarket, grocery delivery Thailand",
+    "heroImage": "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=900&q=74",
+    "heroAlt": "Supermarket shelves for the MASS Mart service",
+    "intro": "MASS Mart makes shopping for household essentials easy and time-saving. Just pick products from nearby supermarkets and shops in the MASS app — from fresh fruit and vegetables and meat to household items and snacks — and our riders hand-pick and deliver them to your door quickly.",
+    "highlights": [
+      {
+        "icon": "leaf",
+        "h": "Quality fresh produce",
+        "body": "Freshly selected fruit, vegetables and meat, straight from trusted stores."
+      },
+      {
+        "icon": "clock",
+        "h": "Fast delivery to your home",
+        "body": "Order and wait at home — no queuing at the checkout counter."
+      },
+      {
+        "icon": "store",
+        "h": "Nearby stores",
+        "body": "Choose from supermarkets and convenience stores in your area."
+      },
+      {
+        "icon": "receipt",
+        "h": "Great value",
+        "body": "Clear prices, plus product promotions to shop to your heart's content."
+      }
+    ],
+    "steps": [
+      {
+        "h": "Choose a store & products",
+        "body": "Pick a supermarket or nearby shop, then add the products you want to your cart in the app."
+      },
+      {
+        "h": "Confirm your order",
+        "body": "Check your items and delivery address, choose a payment method, then confirm."
+      },
+      {
+        "h": "Receive at your door",
+        "body": "The rider hand-picks the products and delivers to your door, with status tracking for you."
+      }
+    ],
+    "sections": [
+      {
+        "h": "Every category your home needs",
+        "body": "MASS Mart brings a wide range of product categories together in one place, so you can restock your home in a single order — from cooking ingredients and seasonal fresh produce to everyday essentials — saving time and cutting trips to the supermarket.",
+        "bullets": [
+          "Fresh fruit, vegetables, meat and seafood",
+          "Milk, eggs, bakery and frozen goods",
+          "Drinks, snacks and treats",
+          "Household items and consumer goods"
+        ],
+        "img": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=74",
+        "imgAlt": "A wide variety of fresh fruit and vegetables on MASS Mart"
+      },
+      {
+        "h": "Saving time to make life easier",
+        "body": "On busy days when there's no time for the supermarket, MASS Mart is the helper that gets you everything without leaving home. Great for working people, families with young children, or seniors who want convenience — in just a few taps, fresh produce and essentials arrive at your door."
+      }
+    ],
+    "faq": [
+      {
+        "q": "How long does MASS Mart delivery take?",
+        "a": "On average within about 30 minutes, depending on distance and the store you choose, so fresh items reach your home quickly."
+      },
+      {
+        "q": "What happens if an item I ordered is out of stock?",
+        "a": "If some items are out of stock, the rider or store will contact you to offer a substitute or adjust the order, which you can confirm in the app."
+      },
+      {
+        "q": "Can I choose which store to shop from?",
+        "a": "Yes. You can choose a supermarket or convenience store near your home yourself in the MASS app."
+      }
+    ]
+  }
+]

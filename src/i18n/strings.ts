@@ -231,6 +231,7 @@ export const DICT = {
     contact: ['ติดต่อเรา', 'Contact us'],
     terms: ['ข้อกำหนดการใช้งาน', 'Terms of service'],
     privacy: ['นโยบายความเป็นส่วนตัว', 'Privacy policy'],
+    privacy_driver: ['ความเป็นส่วนตัว (คนขับ)', 'Privacy (Driver)'],
     partners: ['พาร์ทเนอร์', 'Partners'],
     become_rider: ['สมัครเป็นไรเดอร์', 'Become a rider'],
     become_merchant: ['เปิดร้านกับเรา', 'List your business'],

@@ -1,6 +1,10 @@
-// Content is stored in services.json so it can be edited via the /admin CMS
-// (and by hand on GitHub). This module just adds types + lookup helpers.
-import data from './services.json'
+// Content is stored in services.json (Thai) + services.en.json (English) so it
+// can be edited via the /admin CMS or by hand on GitHub. This module adds types
+// + language-aware lookup helpers.
+import dataTh from './services.json'
+import dataEn from './services.en.json'
+
+export type Lang = 'th' | 'en'
 
 export interface Faq {
   q: string
@@ -33,8 +37,13 @@ export interface ServiceArticle {
   faq: Faq[]
 }
 
-export const SERVICES_CONTENT = data as unknown as ServiceArticle[]
+export const SERVICES_CONTENT = dataTh as unknown as ServiceArticle[]
+export const SERVICES_CONTENT_EN = dataEn as unknown as ServiceArticle[]
 
-export function getService(slug: string): ServiceArticle | undefined {
-  return SERVICES_CONTENT.find((s) => s.slug === slug)
+export function getServices(lang: Lang = 'th'): ServiceArticle[] {
+  return lang === 'en' ? SERVICES_CONTENT_EN : SERVICES_CONTENT
+}
+
+export function getService(slug: string, lang: Lang = 'th'): ServiceArticle | undefined {
+  return getServices(lang).find((s) => s.slug === slug)
 }
