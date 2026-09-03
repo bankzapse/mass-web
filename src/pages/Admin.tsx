@@ -10,9 +10,13 @@ const REPO = 'mass-web'
 const BRANCH = 'main'
 const API = 'https://api.github.com'
 const TOKEN_KEY = 'mass-gh-token'
-const PATHS = {
-  services: 'src/content/services.json',
-  blog: 'src/content/blog.json',
+
+// content-tab + language -> file path
+const PATHS: Record<string, string> = {
+  services_th: 'src/content/services.json',
+  services_en: 'src/content/services.en.json',
+  blog_th: 'src/content/blog.json',
+  blog_en: 'src/content/blog.en.json',
 }
 
 /* --------------------------- utf-8 base64 -------------------------- */
@@ -33,6 +37,7 @@ interface FileState {
   sha: string
   original: string
 }
+type Files = Record<string, FileState | undefined>
 
 /* ------------------------------ page ------------------------------ */
 export default function Admin() {
@@ -41,8 +46,8 @@ export default function Admin() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'saving'>('idle')
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null)
   const [tab, setTab] = useState<'services' | 'blog'>('services')
-  const [services, setServices] = useState<FileState | null>(null)
-  const [blog, setBlog] = useState<FileState | null>(null)
+  const [editLang, setEditLang] = useState<'th' | 'en'>('th')
+  const [files, setFiles] = useState<Files>({})
 
   const headers = useCallback(
     () => ({
@@ -71,9 +76,11 @@ export default function Admin() {
     setStatus('loading')
     setMsg(null)
     try {
-      const [s, b] = await Promise.all([loadFile(PATHS.services), loadFile(PATHS.blog)])
-      setServices(s)
-      setBlog(b)
+      const keys = Object.keys(PATHS)
+      const loaded = await Promise.all(keys.map((k) => loadFile(PATHS[k])))
+      const next: Files = {}
+      keys.forEach((k, i) => (next[k] = loaded[i]))
+      setFiles(next)
       setStatus('ready')
     } catch (e: any) {
       setStatus('idle')
@@ -97,41 +104,40 @@ export default function Admin() {
   function logout() {
     localStorage.removeItem(TOKEN_KEY)
     setToken('')
-    setServices(null)
-    setBlog(null)
+    setFiles({})
     setStatus('idle')
   }
 
-  async function saveFile(path: string, file: FileState, setter: (f: FileState) => void) {
-    const content = JSON.stringify(file.data, null, 2) + '\n'
-    if (content === file.original) return { changed: false, ok: true }
-    const res = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${path}`, {
-      method: 'PUT',
-      headers: headers(),
-      body: JSON.stringify({
-        message: `content: แก้ไขเนื้อหาผ่าน /admin (${path.split('/').pop()})`,
-        content: utf8ToB64(content),
-        sha: file.sha,
-        branch: BRANCH,
-      }),
-    })
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}))
-      throw new Error(`บันทึก ${path} ไม่สำเร็จ (${res.status}) ${err.message || ''}`)
-    }
-    const json = await res.json()
-    setter({ ...file, sha: json.content.sha, original: content })
-    return { changed: true, ok: true }
-  }
-
   async function saveAll() {
-    if (!services || !blog) return
     setStatus('saving')
     setMsg(null)
     try {
-      const r1 = await saveFile(PATHS.services, services, setServices)
-      const r2 = await saveFile(PATHS.blog, blog, setBlog)
-      const changed = r1.changed || r2.changed
+      let changed = false
+      const next: Files = { ...files }
+      for (const key of Object.keys(PATHS)) {
+        const file = files[key]
+        if (!file) continue
+        const content = JSON.stringify(file.data, null, 2) + '\n'
+        if (content === file.original) continue
+        const res = await fetch(`${API}/repos/${OWNER}/${REPO}/contents/${PATHS[key]}`, {
+          method: 'PUT',
+          headers: headers(),
+          body: JSON.stringify({
+            message: `content: แก้ไขเนื้อหาผ่าน /admin (${PATHS[key].split('/').pop()})`,
+            content: utf8ToB64(content),
+            sha: file.sha,
+            branch: BRANCH,
+          }),
+        })
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}))
+          throw new Error(`บันทึก ${PATHS[key]} ไม่สำเร็จ (${res.status}) ${err.message || ''}`)
+        }
+        const json = await res.json()
+        next[key] = { ...file, sha: json.content.sha, original: content }
+        changed = true
+      }
+      setFiles(next)
       setStatus('ready')
       setMsg({
         ok: true,
@@ -145,24 +151,21 @@ export default function Admin() {
     }
   }
 
-  const updateServices = (i: number, mutate: (s: any) => void) =>
-    setServices((prev) => {
-      if (!prev) return prev
-      const data = structuredClone(prev.data)
+  const activeKey = `${tab}_${editLang}`
+  const active = files[activeKey]
+
+  const update = (i: number, mutate: (x: any) => void) =>
+    setFiles((prev) => {
+      const f = prev[activeKey]
+      if (!f) return prev
+      const data = structuredClone(f.data)
       mutate(data[i])
-      return { ...prev, data }
-    })
-  const updateBlog = (i: number, mutate: (p: any) => void) =>
-    setBlog((prev) => {
-      if (!prev) return prev
-      const data = structuredClone(prev.data)
-      mutate(data[i])
-      return { ...prev, data }
+      return { ...prev, [activeKey]: { ...f, data } }
     })
 
-  const dirty =
-    (services && JSON.stringify(services.data, null, 2) + '\n' !== services.original) ||
-    (blog && JSON.stringify(blog.data, null, 2) + '\n' !== blog.original)
+  const dirty = Object.values(files).some(
+    (f) => f && JSON.stringify(f.data, null, 2) + '\n' !== f.original,
+  )
 
   /* ------------------------- not connected ------------------------- */
   if (!token) {
@@ -173,8 +176,8 @@ export default function Admin() {
           <Logo />
           <h1 className="mt-6 font-display text-2xl font-bold text-ink-900">เข้าสู่ระบบจัดการเนื้อหา</h1>
           <p className="mt-2 text-[15px] text-ink-500">
-            วาง GitHub Personal Access Token เพื่อแก้ไขข้อความบนเว็บ (เก็บไว้ในเบราว์เซอร์นี้เท่านั้น
-            ไม่ถูกส่งไปที่อื่นนอกจาก GitHub)
+            วาง GitHub Personal Access Token เพื่อแก้ไขข้อความบนเว็บ (ทั้งไทยและอังกฤษ) — เก็บไว้ในเบราว์เซอร์นี้เท่านั้น
+            ไม่ถูกส่งไปที่อื่นนอกจาก GitHub
           </p>
           <form onSubmit={connect} className="mt-6">
             <label className="mb-1.5 flex items-center gap-1.5 text-sm font-semibold text-ink-700">
@@ -225,10 +228,10 @@ export default function Admin() {
 
       {/* top bar */}
       <div className="sticky top-[76px] z-30 border-b border-ink-100 bg-white/90 backdrop-blur">
-        <div className="container-mass flex items-center justify-between gap-3 py-3">
-          <div className="flex items-center gap-2">
+        <div className="container-mass flex flex-wrap items-center justify-between gap-3 py-3">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-lg bg-mass-500 px-2 py-1 text-xs font-bold text-white">ADMIN</span>
-            <div className="hidden gap-1 sm:flex">
+            <div className="flex gap-1">
               {(['services', 'blog'] as const).map((t) => (
                 <button
                   key={t}
@@ -239,6 +242,21 @@ export default function Admin() {
                   )}
                 >
                   {t === 'services' ? 'บริการ' : 'บทความบล็อก'}
+                </button>
+              ))}
+            </div>
+            {/* language toggle */}
+            <div className="ml-1 inline-flex rounded-full border border-ink-200 bg-white p-0.5 text-xs font-bold">
+              {(['th', 'en'] as const).map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setEditLang(l)}
+                  className={cx(
+                    'rounded-full px-3 py-1 transition-colors',
+                    editLang === l ? 'bg-ink-900 text-white' : 'text-ink-500 hover:text-ink-800',
+                  )}
+                >
+                  {l === 'th' ? 'ไทย' : 'EN'}
                 </button>
               ))}
             </div>
@@ -271,42 +289,32 @@ export default function Admin() {
           </div>
         )}
 
+        <div className="mb-4 flex items-center gap-2 rounded-2xl bg-white px-4 py-2.5 text-sm text-ink-500 ring-1 ring-ink-100">
+          กำลังแก้: <b className="text-ink-800">{tab === 'services' ? 'บริการ' : 'บทความ'}</b> ·
+          ภาษา <b className={editLang === 'th' ? 'text-ink-800' : 'text-mass-600'}>{editLang === 'th' ? 'ไทย' : 'อังกฤษ (EN)'}</b>
+          {editLang === 'en' && <span className="text-ink-400"> — แก้แล้วสลับไป "ไทย" เพื่อดู/แก้ภาษาไทยได้</span>}
+        </div>
+
         {status === 'loading' && (
           <div className="flex items-center gap-2 py-20 text-ink-500">
             <Loader2 className="h-5 w-5 animate-spin" /> กำลังโหลดเนื้อหา...
           </div>
         )}
 
-        {/* mobile tab switch */}
-        <div className="mb-5 flex gap-1 sm:hidden">
-          {(['services', 'blog'] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={cx(
-                'flex-1 rounded-full px-4 py-2 text-sm font-semibold',
-                tab === t ? 'bg-mass-500 text-white' : 'bg-white text-ink-500 ring-1 ring-ink-200',
-              )}
-            >
-              {t === 'services' ? 'บริการ' : 'บทความ'}
-            </button>
-          ))}
-        </div>
-
-        {tab === 'services' && services && (
+        {tab === 'services' && active && (
           <div className="space-y-4">
-            {services.data.map((s, i) => (
-              <Card key={s.slug} title={`${s.emoji} ${s.eyebrow}`} subtitle={s.title}>
-                <Field label="ชื่อหัวข้อ (H1)" value={s.title} onChange={(v) => updateServices(i, (x) => (x.title = v))} />
-                <Field label="Meta Title (SEO)" value={s.metaTitle} onChange={(v) => updateServices(i, (x) => (x.metaTitle = v))} />
-                <Field label="Meta Description (SEO)" value={s.metaDescription} onChange={(v) => updateServices(i, (x) => (x.metaDescription = v))} multiline />
-                <Field label="เกริ่นนำ (Intro)" value={s.intro} onChange={(v) => updateServices(i, (x) => (x.intro = v))} multiline />
+            {active.data.map((s, i) => (
+              <Card key={s.slug} title={`${s.emoji ?? '🧩'} ${s.eyebrow ?? s.slug}`} subtitle={s.title}>
+                <Field label="ชื่อหัวข้อ (H1)" value={s.title} onChange={(v) => update(i, (x) => (x.title = v))} />
+                <Field label="Meta Title (SEO)" value={s.metaTitle} onChange={(v) => update(i, (x) => (x.metaTitle = v))} />
+                <Field label="Meta Description (SEO)" value={s.metaDescription} onChange={(v) => update(i, (x) => (x.metaDescription = v))} multiline />
+                <Field label="เกริ่นนำ (Intro)" value={s.intro} onChange={(v) => update(i, (x) => (x.intro = v))} multiline />
 
                 <Group title="จุดเด่น">
                   {s.highlights.map((h: any, j: number) => (
                     <Row key={j}>
-                      <Field label="หัวข้อ" value={h.h} onChange={(v) => updateServices(i, (x) => (x.highlights[j].h = v))} />
-                      <Field label="รายละเอียด" value={h.body} onChange={(v) => updateServices(i, (x) => (x.highlights[j].body = v))} multiline />
+                      <Field label="หัวข้อ" value={h.h} onChange={(v) => update(i, (x) => (x.highlights[j].h = v))} />
+                      <Field label="รายละเอียด" value={h.body} onChange={(v) => update(i, (x) => (x.highlights[j].body = v))} multiline />
                     </Row>
                   ))}
                 </Group>
@@ -314,8 +322,8 @@ export default function Admin() {
                 <Group title="ขั้นตอนการใช้งาน">
                   {s.steps.map((st: any, j: number) => (
                     <Row key={j}>
-                      <Field label="หัวข้อ" value={st.h} onChange={(v) => updateServices(i, (x) => (x.steps[j].h = v))} />
-                      <Field label="รายละเอียด" value={st.body} onChange={(v) => updateServices(i, (x) => (x.steps[j].body = v))} multiline />
+                      <Field label="หัวข้อ" value={st.h} onChange={(v) => update(i, (x) => (x.steps[j].h = v))} />
+                      <Field label="รายละเอียด" value={st.body} onChange={(v) => update(i, (x) => (x.steps[j].body = v))} multiline />
                     </Row>
                   ))}
                 </Group>
@@ -323,13 +331,13 @@ export default function Admin() {
                 <Group title="เนื้อหา (Sections)">
                   {s.sections.map((sec: any, j: number) => (
                     <Row key={j}>
-                      <Field label="หัวข้อ" value={sec.h} onChange={(v) => updateServices(i, (x) => (x.sections[j].h = v))} />
-                      <Field label="เนื้อหา" value={sec.body} onChange={(v) => updateServices(i, (x) => (x.sections[j].body = v))} multiline />
+                      <Field label="หัวข้อ" value={sec.h} onChange={(v) => update(i, (x) => (x.sections[j].h = v))} />
+                      <Field label="เนื้อหา" value={sec.body} onChange={(v) => update(i, (x) => (x.sections[j].body = v))} multiline />
                       {sec.bullets && (
                         <Field
                           label="รายการย่อย (บรรทัดละ 1 ข้อ)"
                           value={sec.bullets.join('\n')}
-                          onChange={(v) => updateServices(i, (x) => (x.sections[j].bullets = v.split('\n')))}
+                          onChange={(v) => update(i, (x) => (x.sections[j].bullets = v.split('\n')))}
                           multiline
                         />
                       )}
@@ -340,8 +348,8 @@ export default function Admin() {
                 <Group title="คำถามที่พบบ่อย (FAQ)">
                   {s.faq.map((f: any, j: number) => (
                     <Row key={j}>
-                      <Field label="คำถาม" value={f.q} onChange={(v) => updateServices(i, (x) => (x.faq[j].q = v))} />
-                      <Field label="คำตอบ" value={f.a} onChange={(v) => updateServices(i, (x) => (x.faq[j].a = v))} multiline />
+                      <Field label="คำถาม" value={f.q} onChange={(v) => update(i, (x) => (x.faq[j].q = v))} />
+                      <Field label="คำตอบ" value={f.a} onChange={(v) => update(i, (x) => (x.faq[j].a = v))} multiline />
                     </Row>
                   ))}
                 </Group>
@@ -350,24 +358,26 @@ export default function Admin() {
           </div>
         )}
 
-        {tab === 'blog' && blog && (
+        {tab === 'blog' && active && (
           <div className="space-y-4">
-            {blog.data.map((p, i) => (
-              <Card key={p.slug} title={`📝 ${p.category}`} subtitle={p.title}>
-                <Field label="ชื่อบทความ (H1)" value={p.title} onChange={(v) => updateBlog(i, (x) => (x.title = v))} />
-                <Field label="Meta Description (SEO)" value={p.metaDescription} onChange={(v) => updateBlog(i, (x) => (x.metaDescription = v))} multiline />
-                <Field label="สรุปย่อ (Excerpt)" value={p.excerpt} onChange={(v) => updateBlog(i, (x) => (x.excerpt = v))} multiline />
-                <Field label="เกริ่นนำ (Intro)" value={p.intro} onChange={(v) => updateBlog(i, (x) => (x.intro = v))} multiline />
+            {active.data.map((p, i) => (
+              <Card key={p.slug} title={`📝 ${p.category ?? p.slug}`} subtitle={p.title}>
+                <Field label="ชื่อบทความ (H1)" value={p.title} onChange={(v) => update(i, (x) => (x.title = v))} />
+                <Field label="หมวดหมู่" value={p.category} onChange={(v) => update(i, (x) => (x.category = v))} />
+                <Field label="Meta Description (SEO)" value={p.metaDescription} onChange={(v) => update(i, (x) => (x.metaDescription = v))} multiline />
+                <Field label="สรุปย่อ (Excerpt)" value={p.excerpt} onChange={(v) => update(i, (x) => (x.excerpt = v))} multiline />
+                <Field label="วันที่ (แสดงผล)" value={p.dateLabel} onChange={(v) => update(i, (x) => (x.dateLabel = v))} />
+                <Field label="เกริ่นนำ (Intro)" value={p.intro} onChange={(v) => update(i, (x) => (x.intro = v))} multiline />
                 <Group title="เนื้อหา (Sections)">
                   {p.sections.map((sec: any, j: number) => (
                     <Row key={j}>
-                      <Field label="หัวข้อ" value={sec.h} onChange={(v) => updateBlog(i, (x) => (x.sections[j].h = v))} />
-                      <Field label="เนื้อหา" value={sec.body} onChange={(v) => updateBlog(i, (x) => (x.sections[j].body = v))} multiline />
+                      <Field label="หัวข้อ" value={sec.h} onChange={(v) => update(i, (x) => (x.sections[j].h = v))} />
+                      <Field label="เนื้อหา" value={sec.body} onChange={(v) => update(i, (x) => (x.sections[j].body = v))} multiline />
                       {sec.bullets && (
                         <Field
                           label="รายการย่อย (บรรทัดละ 1 ข้อ)"
                           value={sec.bullets.join('\n')}
-                          onChange={(v) => updateBlog(i, (x) => (x.sections[j].bullets = v.split('\n')))}
+                          onChange={(v) => update(i, (x) => (x.sections[j].bullets = v.split('\n')))}
                           multiline
                         />
                       )}
@@ -430,7 +440,7 @@ function Field({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          rows={Math.min(8, Math.max(2, Math.ceil(value.length / 60)))}
+          rows={Math.min(8, Math.max(2, Math.ceil((value?.length ?? 0) / 60)))}
           className="w-full resize-y rounded-xl border border-ink-200 px-3.5 py-2.5 text-[15px] leading-relaxed outline-none focus:border-mass-400 focus:ring-4 focus:ring-mass-500/10"
         />
       ) : (
