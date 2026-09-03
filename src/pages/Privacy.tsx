@@ -157,7 +157,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
       body: th ? (
         <>
           <P>
-            {C} การชำระเงินดำเนินการผ่าน<B>ผู้ให้บริการระบบชำระเงินที่ได้รับอนุญาต</B>{' '}
+            {C} การชำระเงินดำเนินการผ่าน<B>ผู้ให้บริการระบบชำระเงินที่ได้รับอนุญาต (Omise)</B>{' '}
             เราไม่จัดเก็บหมายเลขบัตรเต็มไว้ในระบบของเรา ข้อมูลบัตรถูกจัดการและเข้ารหัสโดยผู้ให้บริการชำระเงินตามมาตรฐาน PCI-DSS
           </P>
           <P>{R} เราเก็บข้อมูลบัญชีธนาคารของคุณเพื่อโอนรายได้ และเก็บประวัติรายได้/การถอนเพื่อการบัญชีและภาษี</P>
@@ -165,7 +165,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
       ) : (
         <>
           <P>
-            {C} Payments are processed by <B>licensed payment providers</B>. We do not store full card numbers in
+            {C} Payments are processed by a <B>licensed payment provider (Omise)</B>. We do not store full card numbers in
             our systems; card data is handled and encrypted by the payment provider under the PCI-DSS standard.
           </P>
           <P>{R} We store your bank account details to transfer earnings, and keep earnings/withdrawal history for accounting and tax.</P>
@@ -198,7 +198,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
           <UL>
             <li><B>ระหว่างลูกค้าและไรเดอร์</B> — ชื่อ เบอร์ติดต่อ และตำแหน่งที่จำเป็นต่อการทำออเดอร์ให้สำเร็จ</li>
             <li><B>ร้านค้า/ผู้ขาย</B> — รายละเอียดออเดอร์ที่จำเป็น</li>
-            <li><B>ผู้ให้บริการภายนอก</B> — Google Firebase (การแจ้งเตือน/วิเคราะห์), Google Maps Platform (แผนที่/นำทาง), ผู้ให้บริการชำระเงิน และผู้ให้บริการส่ง SMS/OTP</li>
+            <li><B>ผู้ให้บริการภายนอก</B> — Google Firebase (การแจ้งเตือน/วิเคราะห์), Google Maps Platform (แผนที่/นำทาง), Omise (ระบบชำระเงิน) และผู้ให้บริการส่ง SMS/OTP</li>
             <li><B>หน่วยงานราชการ</B> — เมื่อมีคำสั่งตามกฎหมายหรือเพื่อปฏิบัติตามกฎหมาย</li>
           </UL>
         </>
@@ -208,7 +208,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
           <UL>
             <li><B>Between customers and riders</B> — name, contact number, and location needed to complete an order</li>
             <li><B>Merchants/sellers</B> — necessary order details</li>
-            <li><B>Third-party providers</B> — Google Firebase (notifications/analytics), Google Maps Platform (maps/navigation), payment providers, and SMS/OTP providers</li>
+            <li><B>Third-party providers</B> — Google Firebase (notifications/analytics), Google Maps Platform (maps/navigation), Omise (payments), and SMS/OTP providers</li>
             <li><B>Government authorities</B> — upon lawful request or to comply with the law</li>
           </UL>
         </>

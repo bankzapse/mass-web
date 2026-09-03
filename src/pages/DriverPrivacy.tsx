@@ -129,7 +129,7 @@ const SECTIONS: Sec[] = [
         t: 'ul',
         v: [
           ['ลูกค้า/ผู้ใช้บริการ — ชื่อ ข้อมูลยานพาหนะ และตำแหน่งของคุณระหว่างให้บริการงานนั้น เพื่อให้ลูกค้าติดตามและติดต่อได้', 'Customers — your name, vehicle information, and location during a job, so customers can track and contact you'],
-          ['ผู้ให้บริการชำระเงินและธนาคาร — เพื่อดำเนินการรับชำระและโอนรายได้', 'Payment providers and banks — to process payments and income transfers'],
+          ['ผู้ให้บริการชำระเงินและธนาคาร (เช่น Omise) — เพื่อดำเนินการรับชำระและโอนรายได้', 'Payment providers and banks (e.g. Omise) — to process payments and income transfers'],
           ['ผู้ให้บริการภายนอกที่จำเป็น — เช่น บริการแผนที่/นำทาง (Google Maps) และบริการแจ้งเตือน (Firebase Cloud Messaging)', 'Necessary third-party providers — such as maps/navigation (Google Maps) and notifications (Firebase Cloud Messaging)'],
           ['หน่วยงานราชการหรือตามกฎหมาย — เมื่อมีคำสั่งหรือข้อกำหนดทางกฎหมาย', 'Government authorities or as required by law — upon lawful request or legal obligation'],
         ],
@@ -147,7 +147,7 @@ const SECTIONS: Sec[] = [
         v: [
           ['Google Maps Platform — แผนที่และการนำทาง', 'Google Maps Platform — maps and navigation'],
           ['Google Firebase (Cloud Messaging) — การแจ้งเตือน', 'Google Firebase (Cloud Messaging) — notifications'],
-          ['ผู้ให้บริการเกตเวย์ชำระเงิน (สำหรับ QR พร้อมเพย์)', 'Payment gateway provider (for PromptPay QR)'],
+          ['Omise — เกตเวย์ชำระเงิน (บัตรเครดิต/เดบิต และ QR พร้อมเพย์)', 'Omise — payment gateway (credit/debit cards and PromptPay QR)'],
         ],
       },
     ],
