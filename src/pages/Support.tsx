@@ -9,6 +9,8 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  MessageSquare,
+  Phone,
   Send,
 } from 'lucide-react'
 import { Seo, breadcrumb, faqSchema, SITE } from '../components/Seo'
@@ -20,6 +22,10 @@ import { IMG } from '../lib/images'
 import { cx } from '../lib/ui'
 
 const EMAIL = 'info@massridedelivery.com'
+const PHONE = '0892616445'
+const PHONE_DISPLAY = '089-261-6445'
+const LINE_ID = '@massride'
+const LINE_URL = 'https://line.me/R/ti/p/@massride'
 const ADDRESS_TH = '42/42 ซอยขวัญเรือน ถนนศรีโสธรตัดใหม่ ตำบลหน้าเมือง อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000'
 const ADDRESS_EN = '42/42 Soi Khwan Ruean, Sri Sothon Tat Mai Rd, Na Mueang, Mueang Chachoengsao, Chachoengsao 24000, Thailand'
 
@@ -110,6 +116,7 @@ export default function Support() {
             '@type': 'Organization',
             name: SITE.legalName,
             email: EMAIL,
+            telephone: '+66892616445',
             url: SITE.url,
             address: {
               '@type': 'PostalAddress',
@@ -149,6 +156,16 @@ export default function Support() {
           <ContactCard icon={Mail} title={th ? 'อีเมล' : 'Email'} desc={th ? 'ตอบกลับภายใน 24 ชั่วโมง' : 'We reply within 24 hours'}>
             <a href={`mailto:${EMAIL}`} className="font-semibold text-mass-600 hover:text-mass-700">
               {EMAIL}
+            </a>
+          </ContactCard>
+          <ContactCard icon={Phone} title={th ? 'โทรศัพท์' : 'Phone'} desc={th ? 'โทรได้ในเวลาทำการ' : 'Call during service hours'}>
+            <a href={`tel:${PHONE}`} className="font-semibold text-mass-600 hover:text-mass-700">
+              {PHONE_DISPLAY}
+            </a>
+          </ContactCard>
+          <ContactCard icon={MessageSquare} title="LINE" desc={th ? 'แอดไลน์เพื่อสอบถาม' : 'Add us on LINE'}>
+            <a href={LINE_URL} target="_blank" rel="noreferrer" className="font-semibold text-mass-600 hover:text-mass-700">
+              {LINE_ID}
             </a>
           </ContactCard>
           <ContactCard icon={MessageCircle} title={th ? 'ในแอป MASS' : 'In the MASS app'} desc={th ? 'เร็วที่สุดสำหรับปัญหาออเดอร์' : 'Fastest for order issues'}>
