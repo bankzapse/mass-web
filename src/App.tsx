@@ -11,6 +11,7 @@ import BlogPost from './pages/BlogPost'
 import Partner from './pages/Partner'
 import Business from './pages/Business'
 import Support from './pages/Support'
+import DriverPrivacy from './pages/DriverPrivacy'
 import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/business" element={<Business />} />
           <Route path="/support" element={<Support />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/mass-driver/privacy-policy" element={<DriverPrivacy />} />
           <Route
             path="/admin"
             element={
