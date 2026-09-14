@@ -73,7 +73,7 @@ export function Footer() {
               <FooterLink to="/support">{t('footer.help_center')}</FooterLink>
               <FooterLink to="/support">{t('footer.safety_center')}</FooterLink>
               <FooterLink to="/support">{t('footer.contact')}</FooterLink>
-              <FooterLink to="/">{t('footer.terms')}</FooterLink>
+              <FooterLink to="/terms">{t('footer.terms')}</FooterLink>
               <FooterLink to="/privacy">{t('footer.privacy')}</FooterLink>
               <FooterLink to="/mass-driver/privacy-policy">{t('footer.privacy_driver')}</FooterLink>
               <FooterLink to="/delete-account">{t('footer.delete_account')}</FooterLink>
@@ -137,7 +137,7 @@ export function Footer() {
             © 2026 {t('footer.company_name')} · {t('footer.rights')}
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link to="/" className="hover:text-white">
+            <Link to="/terms" className="hover:text-white">
               {t('footer.terms')}
             </Link>
             <Link to="/privacy" className="hover:text-white">

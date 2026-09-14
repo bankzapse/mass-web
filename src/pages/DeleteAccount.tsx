@@ -63,12 +63,14 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
           <li>ชื่อ-นามสกุล เบอร์โทรศัพท์ อีเมล ที่อยู่จัดส่ง</li>
           <li>ประวัติออเดอร์/การเดินทาง ตำแหน่งที่บันทึกไว้ วิธีการชำระเงินที่บันทึกในแอป</li>
           <li>(ไรเดอร์) เอกสารยืนยันตัวตนและข้อมูลบัญชีธนาคารสำหรับรับรายได้</li>
+          <li>(ร้านค้า) ข้อมูลร้าน เอกสาร KYC เมนู/รูปภาพสินค้า และบัญชีธนาคารสำหรับรับยอดขาย</li>
         </UL>
       ) : (
         <UL>
           <li>Name, phone number, email, and delivery addresses</li>
           <li>Order/trip history, saved locations, and payment methods saved in the app</li>
           <li>(Riders) identity documents and bank account details for receiving income</li>
+          <li>(Merchants) store details, KYC documents, menu/product images, and bank account for receiving sales proceeds</li>
         </UL>
       ),
     },
@@ -180,8 +182,8 @@ export default function DeleteAccount() {
           title={th ? 'ขอลบบัญชีและข้อมูลส่วนบุคคล' : 'Delete Your Account & Personal Data'}
           subtitle={
             th
-              ? 'ครอบคลุมแอป MASS (ลูกค้า) และ MASS Driver (ไรเดอร์) — บริษัท แมส ไรด์ แอนด์ เดลิเวอรี่ จำกัด'
-              : 'Covering the MASS (customer) and MASS Driver (rider) apps — MASS RIDE & DELIVERY Co., Ltd.'
+              ? 'ครอบคลุมแอป MASS (ลูกค้า), MASS Driver (ไรเดอร์) และ MASS Merchant (ร้านค้า) — บริษัท แมส ไรด์ แอนด์ เดลิเวอรี่ จำกัด'
+              : 'Covering the MASS (customer), MASS Driver (rider), and MASS Merchant (store) apps — MASS RIDE & DELIVERY Co., Ltd.'
           }
         />
         <Reveal>

@@ -13,6 +13,7 @@ import Business from './pages/Business'
 import Support from './pages/Support'
 import DriverPrivacy from './pages/DriverPrivacy'
 import Privacy from './pages/Privacy'
+import Terms from './pages/Terms'
 import DeleteAccount from './pages/DeleteAccount'
 import NotFound from './pages/NotFound'
 
@@ -39,6 +40,9 @@ export default function App() {
           <Route path="/business" element={<Business />} />
           <Route path="/support" element={<Support />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/merchant/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/merchant/terms" element={<Terms />} />
           <Route path="/delete-account" element={<DeleteAccount />} />
           <Route path="/mass-driver/privacy-policy" element={<DriverPrivacy />} />
           <Route

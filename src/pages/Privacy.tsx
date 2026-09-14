@@ -11,17 +11,35 @@ const ADDRESS_EN =
   '42/42 Soi Khwan Ruean, Sri Sothon Tat Mai Rd, Na Mueang, Mueang Chachoengsao, Chachoengsao 24000, Thailand'
 const REG_NO = '0245569003051'
 const EFFECTIVE: [string, string] = ['1 กันยายน 2569', '1 September 2026']
-const UPDATED: [string, string] = ['3 กันยายน 2569', '3 September 2026']
+const UPDATED: [string, string] = ['14 กันยายน 2569', '14 September 2026']
 
-function Tag({ app, th }: { app: 'customer' | 'rider'; th: boolean }) {
+function Tag({ app, th }: { app: 'customer' | 'rider' | 'merchant'; th: boolean }) {
+  const label =
+    app === 'customer'
+      ? th
+        ? 'ลูกค้า'
+        : 'Customer'
+      : app === 'rider'
+        ? th
+          ? 'ไรเดอร์'
+          : 'Rider'
+        : th
+          ? 'ร้านค้า'
+          : 'Merchant'
+  const cls =
+    app === 'customer'
+      ? 'bg-ink-50 text-ink-600'
+      : app === 'rider'
+        ? 'bg-mass-50 text-mass-600'
+        : 'bg-go-50 text-go-700'
   return (
     <span
       className={cx(
         'ml-1 inline-flex items-center rounded-full px-2.5 py-0.5 align-middle text-[12px] font-semibold',
-        app === 'customer' ? 'bg-ink-50 text-ink-600' : 'bg-mass-50 text-mass-600',
+        cls,
       )}
     >
-      {app === 'customer' ? (th ? 'ลูกค้า' : 'Customer') : th ? 'ไรเดอร์' : 'Rider'}
+      {label}
     </span>
   )
 }
@@ -42,6 +60,7 @@ const UL = ({ children }: { children: React.ReactNode }) => (
 function buildSections(th: boolean): { n: string; title: React.ReactNode; body: React.ReactNode }[] {
   const C = <Tag app="customer" th={th} />
   const R = <Tag app="rider" th={th} />
+  const M = <Tag app="merchant" th={th} />
   return [
     {
       n: '1',
@@ -49,27 +68,28 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
       body: th ? (
         <>
           <P>
-            {SITE.legalName} (“เรา”) ให้บริการแอปพลิเคชัน <B>MASS (MassRide)</B> สำหรับลูกค้า และ{' '}
-            <B>MASS Driver (MassDrive)</B> สำหรับไรเดอร์/ผู้ให้บริการ นโยบายนี้อธิบายว่าเราเก็บ ใช้ เปิดเผย
+            {SITE.legalName} (“เรา”) ให้บริการแอปพลิเคชัน <B>MASS (MassRide)</B> สำหรับลูกค้า,{' '}
+            <B>MASS Driver (MassDrive)</B> สำหรับไรเดอร์/ผู้ให้บริการ และ <B>MASS Merchant (MassMerchant)</B>{' '}
+            สำหรับร้านค้า/ผู้ขาย นโยบายนี้อธิบายว่าเราเก็บ ใช้ เปิดเผย
             และคุ้มครองข้อมูลส่วนบุคคลของคุณอย่างไร ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)
             และกฎหมายที่เกี่ยวข้อง
           </P>
           <P>
             เมื่อคุณดาวน์โหลด สมัคร หรือใช้แอปของเรา ถือว่าคุณได้อ่านและเข้าใจนโยบายฉบับนี้แล้ว
-            ส่วนที่ใช้กับแอปใดแอปหนึ่งโดยเฉพาะจะมีป้ายกำกับ {C} หรือ {R}
+            ส่วนที่ใช้กับแอปใดแอปหนึ่งโดยเฉพาะจะมีป้ายกำกับ {C} {R} หรือ {M}
           </P>
         </>
       ) : (
         <>
           <P>
-            {SITE.legalName} (“we”) provides the <B>MASS (MassRide)</B> app for customers and{' '}
-            <B>MASS Driver (MassDrive)</B> app for riders/partners. This policy explains how we collect, use,
-            disclose, and protect your personal data in accordance with Thailand's Personal Data Protection Act
-            B.E. 2562 (PDPA) and related laws.
+            {SITE.legalName} (“we”) provides the <B>MASS (MassRide)</B> app for customers, the{' '}
+            <B>MASS Driver (MassDrive)</B> app for riders/partners, and the <B>MASS Merchant (MassMerchant)</B> app
+            for stores/sellers. This policy explains how we collect, use, disclose, and protect your personal data
+            in accordance with Thailand's Personal Data Protection Act B.E. 2562 (PDPA) and related laws.
           </P>
           <P>
             By downloading, signing up for, or using our apps, you acknowledge that you have read and understood
-            this policy. Sections specific to one app are labelled {C} or {R}.
+            this policy. Sections specific to one app are labelled {C} {R} or {M}.
           </P>
         </>
       ),
@@ -87,6 +107,10 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
             <li><B>ข้อมูลการชำระเงิน</B> — วิธีชำระเงินและประวัติธุรกรรม (หมายเลขบัตรจัดการโดยผู้ให้บริการชำระเงิน) {C}</li>
             <li><B>รูปโปรไฟล์</B> — รูปภาพที่คุณเลือกอัปโหลดจากกล้องหรือคลังภาพในอุปกรณ์ เพื่อใช้เป็นรูปประจำตัวในบัญชีของคุณ {C}</li>
             <li><B>เอกสารยืนยันตัวตน</B> — บัตรประชาชน ใบขับขี่ ทะเบียนรถ รูปถ่าย และบัญชีธนาคาร {R}</li>
+            <li><B>ข้อมูลร้านค้า</B> — ชื่อร้าน ประเภทธุรกิจ ที่อยู่ร้าน และเวลาทำการ {M}</li>
+            <li><B>เอกสารยืนยันตัวตน/นิติบุคคล (KYC)</B> — บัตรประชาชนหรือหนังสือรับรองบริษัท ทะเบียนพาณิชย์ รูปถ่ายร้าน และบัญชีธนาคารสำหรับรับโอนยอดขาย {M}</li>
+            <li><B>เมนูและรูปภาพสินค้า</B> — ชื่อเมนู ราคา รายละเอียด และรูปภาพที่คุณอัปโหลด {M}</li>
+            <li><B>ข้อมูลการเงินร้านค้า</B> — ยอดขาย ประวัติออเดอร์ และประวัติการโอนเงิน {M}</li>
             <li><B>ข้อมูลอุปกรณ์</B> — รุ่นอุปกรณ์ ระบบปฏิบัติการ ตัวระบุอุปกรณ์ และโทเคนการแจ้งเตือน (FCM)</li>
             <li><B>ข้อมูลการใช้งาน</B> — ประวัติออเดอร์/งาน การใช้ฟีเจอร์ และบันทึกข้อผิดพลาด</li>
           </UL>
@@ -101,6 +125,10 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
             <li><B>Payment data</B> — payment method and transaction history (card numbers handled by the payment provider) {C}</li>
             <li><B>Profile photo</B> — an image you choose to upload from your device camera or photo library to use as your account profile picture {C}</li>
             <li><B>Identity documents</B> — national ID card, driver's license, vehicle registration, photo, and bank account {R}</li>
+            <li><B>Store data</B> — store name, business type, store address, and operating hours {M}</li>
+            <li><B>Identity/entity documents (KYC)</B> — national ID card or company certificate, commercial registration, store photos, and bank account for receiving sales proceeds {M}</li>
+            <li><B>Menu & product images</B> — item names, prices, descriptions, and photos you upload {M}</li>
+            <li><B>Merchant financial data</B> — sales, order history, and settlement/transfer history {M}</li>
             <li><B>Device data</B> — device model, operating system, device identifiers, and notification token (FCM)</li>
             <li><B>Usage data</B> — order/job history, feature usage, and error logs</li>
           </UL>
@@ -161,6 +189,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
             เราไม่จัดเก็บหมายเลขบัตรเต็มไว้ในระบบของเรา ข้อมูลบัตรถูกจัดการและเข้ารหัสโดยผู้ให้บริการชำระเงินตามมาตรฐาน PCI-DSS
           </P>
           <P>{R} เราเก็บข้อมูลบัญชีธนาคารของคุณเพื่อโอนรายได้ และเก็บประวัติรายได้/การถอนเพื่อการบัญชีและภาษี</P>
+          <P>{M} เราเก็บข้อมูลบัญชีธนาคารของร้านค้าเพื่อโอนยอดขาย และเก็บประวัติยอดขาย/การโอนเพื่อการบัญชีและภาษี</P>
         </>
       ) : (
         <>
@@ -169,6 +198,7 @@ function buildSections(th: boolean): { n: string; title: React.ReactNode; body: 
             our systems; card data is handled and encrypted by the payment provider under the PCI-DSS standard.
           </P>
           <P>{R} We store your bank account details to transfer earnings, and keep earnings/withdrawal history for accounting and tax.</P>
+          <P>{M} We store the merchant's bank account details to transfer sales proceeds, and keep sales/settlement history for accounting and tax.</P>
         </>
       ),
     },
@@ -360,8 +390,8 @@ export default function Privacy() {
         title={th ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy'}
         description={
           th
-            ? 'นโยบายความเป็นส่วนตัวของ MASS RIDE & DELIVERY ตาม PDPA — ครอบคลุมแอปลูกค้า (MassRide) และไรเดอร์ (MassDrive) การเก็บ ใช้ และคุ้มครองข้อมูลส่วนบุคคล'
-            : 'MASS RIDE & DELIVERY Privacy Policy under PDPA — covering the customer app (MassRide) and rider app (MassDrive): how we collect, use, and protect personal data.'
+            ? 'นโยบายความเป็นส่วนตัวของ MASS RIDE & DELIVERY ตาม PDPA — ครอบคลุมแอปลูกค้า (MassRide) ไรเดอร์ (MassDrive) และร้านค้า (MassMerchant) การเก็บ ใช้ และคุ้มครองข้อมูลส่วนบุคคล'
+            : 'MASS RIDE & DELIVERY Privacy Policy under PDPA — covering the customer (MassRide), rider (MassDrive), and merchant (MassMerchant) apps: how we collect, use, and protect personal data.'
         }
         path="/privacy"
         jsonLd={breadcrumb([
@@ -376,8 +406,8 @@ export default function Privacy() {
           title={th ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy'}
           subtitle={
             th
-              ? 'ครอบคลุมแอป MASS (ลูกค้า) และ MASS Driver (ไรเดอร์) — เราให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของคุณตามกฎหมาย PDPA'
-              : 'Covering the MASS (customer) and MASS Driver (rider) apps — we are committed to protecting your personal data under Thailand’s PDPA.'
+              ? 'ครอบคลุมแอป MASS (ลูกค้า), MASS Driver (ไรเดอร์) และ MASS Merchant (ร้านค้า) — เราให้ความสำคัญกับการคุ้มครองข้อมูลส่วนบุคคลของคุณตามกฎหมาย PDPA'
+              : 'Covering the MASS (customer), MASS Driver (rider), and MASS Merchant (store) apps — we are committed to protecting your personal data under Thailand’s PDPA.'
           }
         />
         <Reveal>
