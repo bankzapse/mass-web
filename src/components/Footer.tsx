@@ -76,6 +76,8 @@ export function Footer() {
               <FooterLink to="/terms">{t('footer.terms')}</FooterLink>
               <FooterLink to="/privacy">{t('footer.privacy')}</FooterLink>
               <FooterLink to="/mass-driver/privacy-policy">{t('footer.privacy_driver')}</FooterLink>
+              <FooterLink to="/merchant/privacy">{t('footer.privacy_merchant')}</FooterLink>
+              <FooterLink to="/merchant/terms">{t('footer.terms_merchant')}</FooterLink>
               <FooterLink to="/delete-account">{t('footer.delete_account')}</FooterLink>
             </FooterCol>
           </div>

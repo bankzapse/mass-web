@@ -232,6 +232,8 @@ export const DICT = {
     terms: ['ข้อกำหนดการใช้งาน', 'Terms of service'],
     privacy: ['นโยบายความเป็นส่วนตัว', 'Privacy policy'],
     privacy_driver: ['ความเป็นส่วนตัว (คนขับ)', 'Privacy (Driver)'],
+    privacy_merchant: ['ความเป็นส่วนตัว (ร้านค้า)', 'Privacy (Merchant)'],
+    terms_merchant: ['ข้อกำหนด (ร้านค้า)', 'Terms (Merchant)'],
     delete_account: ['ขอลบบัญชี', 'Delete account'],
     partners: ['พาร์ทเนอร์', 'Partners'],
     become_rider: ['สมัครเป็นไรเดอร์', 'Become a rider'],
