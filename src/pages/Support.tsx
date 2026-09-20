@@ -22,8 +22,8 @@ import { IMG } from '../lib/images'
 import { cx } from '../lib/ui'
 
 const EMAIL = 'info@massridedelivery.com'
-const PHONE = '0892616445'
-const PHONE_DISPLAY = '089-261-6445'
+const PHONE = '0656924555'
+const PHONE_DISPLAY = '065-692-4555'
 const LINE_ID = '@massride'
 const LINE_URL = 'https://line.me/R/ti/p/@massride'
 const ADDRESS_TH = '42/42 ซอยขวัญเรือน ถนนศรีโสธรตัดใหม่ ตำบลหน้าเมือง อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000'
@@ -116,7 +116,7 @@ export default function Support() {
             '@type': 'Organization',
             name: SITE.legalName,
             email: EMAIL,
-            telephone: '+66892616445',
+            telephone: '+66656924555',
             url: SITE.url,
             address: {
               '@type': 'PostalAddress',
