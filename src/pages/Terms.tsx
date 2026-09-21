@@ -9,8 +9,8 @@ const ADDRESS_TH =
 const ADDRESS_EN =
   '42/42 Soi Khwan Ruean, Sri Sothon Tat Mai Rd, Na Mueang, Mueang Chachoengsao, Chachoengsao 24000, Thailand'
 const REG_NO = '0245569003051'
-const EFFECTIVE: [string, string] = ['14 กันยายน 2569', '14 September 2026']
-const UPDATED: [string, string] = ['14 กันยายน 2569', '14 September 2026']
+const EFFECTIVE: [string, string] = ['21 กันยายน 2569', '21 September 2026']
+const UPDATED: [string, string] = ['21 กันยายน 2569', '21 September 2026']
 
 const P = ({ children }: { children: React.ReactNode }) => (
   <p className="mt-2.5 text-[16px] leading-relaxed text-ink-500">{children}</p>
