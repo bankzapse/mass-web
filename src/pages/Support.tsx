@@ -23,7 +23,7 @@ import { cx } from '../lib/ui'
 
 const EMAIL = 'info@massridedelivery.com'
 const PHONE = '0656924555'
-const PHONE_DISPLAY = '065-692-4555'
+const PHONE_DISPLAY = '065-6924555'
 const LINE_ID = '@massride'
 const LINE_URL = 'https://line.me/R/ti/p/@massride'
 const ADDRESS_TH = '42/42 ซอยขวัญเรือน ถนนศรีโสธรตัดใหม่ ตำบลหน้าเมือง อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000'
