@@ -13,8 +13,8 @@ const ADDRESS: L = [
   '42/42 ซอยขวัญเรือน ถนนศรีโสธรตัดใหม่ ตำบลหน้าเมือง อำเภอเมืองฉะเชิงเทรา จังหวัดฉะเชิงเทรา 24000',
   '42/42 Soi Khwan Ruean, Sri Sothon Tat Mai Rd, Na Mueang, Mueang Chachoengsao District, Chachoengsao 24000, Thailand',
 ]
-const EFFECTIVE: L = ['21 กันยายน 2026', '21 September 2026']
-const UPDATED: L = ['21 กันยายน 2026', '21 September 2026']
+const EFFECTIVE: L = ['21 กันยายน 2569', '21 September 2026']
+const UPDATED: L = ['21 กันยายน 2569', '21 September 2026']
 
 type Block =
   | { t: 'p'; v: L }
