@@ -5,7 +5,7 @@ export const SITE = {
   name: 'MASS RIDE & DELIVERY',
   legalName: 'บริษัท แมส ไรด์ แอนด์ เดลิเวอรี่ จำกัด',
   url: 'https://massridedelivery.com',
-  logo: 'https://massridedelivery.com/favicon.svg',
+  logo: 'https://massridedelivery.com/mass-move-icon.png',
   themeColor: '#E4002B',
   defaultOgImage:
     'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=70',
