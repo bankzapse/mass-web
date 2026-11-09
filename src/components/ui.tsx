@@ -129,20 +129,33 @@ export function FauxQR({ size = 132, seed = 'mass-app' }: { size?: number; seed?
   )
 }
 
+export const APP_STORE_URL = 'https://apps.apple.com/th/app/id6790326601'
+export const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.massdrive.customer_app'
+
 export function AppBadges({ className, light = false }: { className?: string; light?: boolean }) {
   const base = light
     ? 'bg-white text-ink-900 hover:bg-white/90'
     : 'bg-ink-900 text-white hover:bg-ink-800'
   return (
     <div className={cx('flex flex-wrap gap-3', className)}>
-      <a href="#download" className={cx('flex items-center gap-3 rounded-2xl px-4 py-2.5 transition-colors shadow-soft', base)}>
+      <a
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noreferrer"
+        className={cx('flex items-center gap-3 rounded-2xl px-4 py-2.5 transition-colors shadow-soft', base)}
+      >
         <AppleLogo />
         <span className="flex flex-col leading-tight text-left">
           <span className="text-[10px] opacity-80">Download on the</span>
           <span className="text-[15px] font-semibold -mt-0.5">App Store</span>
         </span>
       </a>
-      <a href="#download" className={cx('flex items-center gap-3 rounded-2xl px-4 py-2.5 transition-colors shadow-soft', base)}>
+      <a
+        href={GOOGLE_PLAY_URL}
+        target="_blank"
+        rel="noreferrer"
+        className={cx('flex items-center gap-3 rounded-2xl px-4 py-2.5 transition-colors shadow-soft', base)}
+      >
         <PlayLogo />
         <span className="flex flex-col leading-tight text-left">
           <span className="text-[10px] opacity-80">GET IT ON</span>
